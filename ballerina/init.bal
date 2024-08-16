@@ -21,5 +21,5 @@ function init() {
 }
 
 function setModule() = @java:Method {
-    'class: "io.ballerina.lib.aws.mpe.Utils"
+    'class: "io.ballerina.lib.aws.mpe.ModuleUtils"
 } external;
