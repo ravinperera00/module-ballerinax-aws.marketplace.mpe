@@ -12,7 +12,6 @@
 
 # Package Files #
 *.jar
-!gradle-wrapper/*.jar
 *.war
 *.ear
 *.zip
@@ -31,13 +30,21 @@ hs_err_pid*
 .settings
 .vscode
 
-target
+# Files related to IntelliJ
 .idea
 *.iml
 *.ipr
 *.iws
+
+# Gradle build related files
 .gradle
+!gradle/wrapper/gradle-wrapper.jar
+.m2
+
+# Ignore output directories
 build
+target
+generated
 
 # Environment files
 *.env
