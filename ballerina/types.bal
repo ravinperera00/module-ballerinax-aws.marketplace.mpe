@@ -14,6 +14,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import ballerina/time;
+
 # Represents the Client configurations for AWS Marketplace Entitlement service.
 public type ConnectionConfig record {|
     # The AWS region with which the connector should communicate
