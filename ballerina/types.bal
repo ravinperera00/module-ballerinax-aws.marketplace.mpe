@@ -39,7 +39,7 @@ public enum Region {
     AWS_GLOBAL = "aws-global",
     AWS_ISO_GLOBAL = "aws-iso-global",
     AWS_ISO_B_GLOBAL = "aws-iso-b-global",
-    AWS_US_GOV_GLOBAL = "aws-us-gov-global"
+    AWS_US_GOV_GLOBAL = "aws-us-gov-global",
     CA_WEST_1 = "ca-west-1",
     CA_CENTRAL_1 = "ca-central-1",
     CN_NORTH_1 = "cn-north-1",
