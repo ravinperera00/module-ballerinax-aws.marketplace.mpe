@@ -19,6 +19,9 @@
 module io.ballerina.lib.aws.mpe {
     requires io.ballerina.runtime;
     requires io.ballerina.lang.value;
+    requires software.amazon.awssdk.auth;
+    requires software.amazon.awssdk.regions;
+    requires software.amazon.awssdk.services.marketplaceentitlement;
 
     exports io.ballerina.lib.aws.mpe;
 }

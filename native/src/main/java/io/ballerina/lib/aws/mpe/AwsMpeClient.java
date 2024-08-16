@@ -21,16 +21,44 @@ package io.ballerina.lib.aws.mpe;
 import io.ballerina.runtime.api.values.BMap;
 import io.ballerina.runtime.api.values.BObject;
 import io.ballerina.runtime.api.values.BString;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.services.marketplaceentitlement.MarketplaceEntitlementClient;
+
+import java.util.Objects;
 
 /**
  * Representation of {@link software.amazon.awssdk.services.marketplaceentitlement.MarketplaceEntitlementClient} with
  * utility methods to invoke as inter-op functions.
  */
 public final class AwsMpeClient {
+    private static final String NATIVE_CLIENT = "nativeClient";
+
     private AwsMpeClient() {
     }
 
     public static Object init(BObject bAwsMpeClient, BMap<BString, Object> configurations) {
+        try {
+            ConnectionConfig connectionConfig = new ConnectionConfig(configurations);
+            AwsCredentials credentials = null;
+            if (Objects.nonNull(connectionConfig.sessionToken())) {
+                credentials = AwsSessionCredentials.create(connectionConfig.accessKeyId(),
+                        connectionConfig.secretAccessKey(), connectionConfig.sessionToken());
+            } else {
+                credentials = AwsBasicCredentials.create(
+                        connectionConfig.accessKeyId(), connectionConfig.secretAccessKey());
+            }
+            AwsCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(credentials);
+            MarketplaceEntitlementClient client = MarketplaceEntitlementClient.builder()
+                    .credentialsProvider(credentialsProvider)
+                    .region(connectionConfig.region()).build();
+            bAwsMpeClient.addNativeData(NATIVE_CLIENT, client);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return null;
     }
 

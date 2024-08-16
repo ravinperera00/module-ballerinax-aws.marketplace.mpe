@@ -37,6 +37,9 @@ dependencies {
     implementation group: 'org.ballerinalang', name: 'ballerina-runtime', version: "${ballerinaLangVersion}"
     implementation group: 'org.ballerinalang', name: 'ballerina-lang', version: "${ballerinaLangVersion}"
     implementation group: 'org.ballerinalang', name: 'value', version: "${ballerinaLangVersion}"
+    implementation group: 'software.amazon.awssdk', name: 'regions', version: '2.27.6'
+    implementation group: 'software.amazon.awssdk', name: 'http-auth-aws', version: '2.27.6'
+    implementation group: 'software.amazon.awssdk', name: 'marketplaceentitlement', version: "${awsMpEntitlementSdkVersion}"
 
     dist group: 'software.amazon.awssdk', name: 'marketplaceentitlement', version: "${awsMpEntitlementSdkVersion}"
 }
