@@ -19,4 +19,6 @@
 module io.ballerina.lib.aws.mpe {
     requires io.ballerina.runtime;
     requires io.ballerina.lang.value;
+
+    exports io.ballerina.lib.aws.mpe;
 }

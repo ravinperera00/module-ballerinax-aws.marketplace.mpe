@@ -11,3 +11,9 @@ repository = "https://github.com/ballerina-platform/module-ballerinax-aws.market
 
 [platform.java17]
 graalvmCompatible = true
+
+[[platform.java17.dependency]]
+groupId = "io.ballerina.lib"
+artifactId = "aws.marketplace.mpe-native"
+version = "@project.version@"
+path = "../native/build/libs/aws.marketplace.mpe-native-@project.version@.jar"

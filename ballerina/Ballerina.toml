@@ -1,8 +1,19 @@
 [package]
-org = "ayesh"
+distribution = "2201.9.2"
+org = "ballerinax"
 name = "aws.marketplace.mpe"
 version = "0.1.0"
-distribution = "2201.9.2"
+license= ["Apache-2.0"]
+authors = ["Ballerina"]
+keywords = ["IT Operations/Databases", "Cost/Freemium"]
+icon = "icon.png"
+repository = "https://github.com/ballerina-platform/module-ballerinax-aws.marketplace.mpe"
 
-[build-options]
-observabilityIncluded = true
+[platform.java17]
+graalvmCompatible = true
+
+[[platform.java17.dependency]]
+groupId = "io.ballerina.lib"
+artifactId = "aws.marketplace.mpe-native"
+version = "0.1.0-SNAPSHOT"
+path = "../native/build/libs/aws.marketplace.mpe-native-0.1.0-SNAPSHOT.jar"

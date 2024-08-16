@@ -24,9 +24,9 @@ import io.ballerina.runtime.api.Module;
 /**
  * Module utils for the Ballerina AWS Marketplace Entitlement connector to obtain the module info in the init.
  */
-public class ModuleUtils {
+public final class Utils {
 
-    private ModuleUtils() {
+    private Utils() {
     }
 
     private static Module module;

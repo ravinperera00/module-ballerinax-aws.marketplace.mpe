@@ -42,17 +42,17 @@ plugins {
 }
 
 def projectName = 'aws.marketplace.mpe'
-rootProject.name = "ballerinax ${projectName}"
+rootProject.name = "module-ballerinax-${projectName}"
 
 include ":checkstyle"
 include ":${projectName}-native"
 include ":${projectName}-ballerina"
-include ":${projectName}-examples"
+//include ":${projectName}-examples"
 
 project(':checkstyle').projectDir = file("build-config${File.separator}checkstyle")
 project(":${projectName}-native").projectDir = file('native')
 project(":${projectName}-ballerina").projectDir = file('ballerina')
-project(":${projectName}-examples").projectDir = file('examples')
+//project(":${projectName}-examples").projectDir = file('examples')
 
 gradleEnterprise {
     buildScan {
