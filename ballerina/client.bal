@@ -25,6 +25,7 @@ public isolated client class Client {
 
     isolated function externInit(ConnectionConfig configs) returns Error? = 
     @java:Method {
+        name: "init",
         'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
     } external;    
 
