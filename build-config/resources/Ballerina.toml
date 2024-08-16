@@ -1,0 +1,13 @@
+[package]
+distribution = "2201.9.2"
+org = "ballerinax"
+name = "aws.marketplace.mpe"
+version = "@toml.version@"
+license= ["Apache-2.0"]
+authors = ["Ballerina"]
+keywords = ["IT Operations/Databases", "Cost/Freemium"]
+icon = "icon.png"
+repository = "https://github.com/ballerina-platform/module-ballerinax-aws.marketplace.mpe"
+
+[platform.java17]
+graalvmCompatible = true
