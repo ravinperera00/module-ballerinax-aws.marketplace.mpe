@@ -97,7 +97,7 @@ public type EntitlementRequest record {|
 public type EntitlementFilter record {|
     # Customer identifier based filter
     string[] customerIdentifier?;
-    # Produce dimension based filter
+    # Product dimension based filter
     string[] dimension?;
 |};
 
