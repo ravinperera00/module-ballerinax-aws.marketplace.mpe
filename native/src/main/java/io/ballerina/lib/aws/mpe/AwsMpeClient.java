@@ -43,23 +43,25 @@ public final class AwsMpeClient {
     public static Object init(BObject bAwsMpeClient, BMap<BString, Object> configurations) {
         try {
             ConnectionConfig connectionConfig = new ConnectionConfig(configurations);
-            AwsCredentials credentials = null;
-            if (Objects.nonNull(connectionConfig.sessionToken())) {
-                credentials = AwsSessionCredentials.create(connectionConfig.accessKeyId(),
-                        connectionConfig.secretAccessKey(), connectionConfig.sessionToken());
-            } else {
-                credentials = AwsBasicCredentials.create(
-                        connectionConfig.accessKeyId(), connectionConfig.secretAccessKey());
-            }
+            AwsCredentials credentials = getCredentials(connectionConfig);
             AwsCredentialsProvider credentialsProvider = StaticCredentialsProvider.create(credentials);
-            MarketplaceEntitlementClient client = MarketplaceEntitlementClient.builder()
+            MarketplaceEntitlementClient nativeClient = MarketplaceEntitlementClient.builder()
                     .credentialsProvider(credentialsProvider)
                     .region(connectionConfig.region()).build();
-            bAwsMpeClient.addNativeData(NATIVE_CLIENT, client);
+            bAwsMpeClient.addNativeData(NATIVE_CLIENT, nativeClient);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    private static AwsCredentials getCredentials(ConnectionConfig connectionConfig) {
+        if (Objects.nonNull(connectionConfig.sessionToken())) {
+            return AwsSessionCredentials.create(connectionConfig.accessKeyId(), connectionConfig.secretAccessKey(),
+                    connectionConfig.sessionToken());
+        } else {
+            return AwsBasicCredentials.create(connectionConfig.accessKeyId(), connectionConfig.secretAccessKey());
+        }
     }
 
     public static Object getEntitlements(BObject bAwsMpeClient, BMap<BString, Object> request) {

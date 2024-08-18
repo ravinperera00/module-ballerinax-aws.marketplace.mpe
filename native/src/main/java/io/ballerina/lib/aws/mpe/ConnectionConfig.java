@@ -18,9 +18,12 @@
 
 package io.ballerina.lib.aws.mpe;
 
+import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.BMap;
 import io.ballerina.runtime.api.values.BString;
 import software.amazon.awssdk.regions.Region;
+
+import java.util.List;
 
 /**
  * {@code ConnectionConfig} contains the java representation of the Ballerina AWS MPE client configurations.
@@ -32,9 +35,35 @@ import software.amazon.awssdk.regions.Region;
  *                        this user has received temporary permission to access some resource.
  */
 public record ConnectionConfig(Region region, String accessKeyId, String secretAccessKey, String sessionToken) {
+    private static final List<Region> AWS_GLOBAL_REGIONS = List.of(
+            Region.AWS_GLOBAL, Region.AWS_CN_GLOBAL, Region.AWS_US_GOV_GLOBAL, Region.AWS_ISO_GLOBAL,
+            Region.AWS_ISO_B_GLOBAL);
+    private static final BString REGION = StringUtils.fromString("region");
+    private static final BString AUTH = StringUtils.fromString("auth");
+    private static final BString AUTH_ACCESS_KEY_KEY = StringUtils.fromString("accessKeyId");
+    private static final BString AUTH_SECRET_ACCESS_KEY = StringUtils.fromString("secretAccessKey");
+    private static final BString AUTH_SESSION_TOKEN = StringUtils.fromString("sessionToken");
 
-    // todo: implement this properly
     public ConnectionConfig(BMap<BString, Object> configurations) {
-        this(null, null, null, null);
+        this(
+                getRegion(configurations),
+                getAuthConfig(configurations, AUTH_ACCESS_KEY_KEY),
+                getAuthConfig(configurations, AUTH_SECRET_ACCESS_KEY),
+                getAuthConfig(configurations, AUTH_SESSION_TOKEN)
+        );
+    }
+
+    private static Region getRegion(BMap<BString, Object> configurations) {
+        String region = configurations.getStringValue(REGION).getValue();
+        return AWS_GLOBAL_REGIONS.stream().filter(gr -> gr.id().equals(region)).findFirst().orElse(Region.of(region));
+    }
+
+    @SuppressWarnings("unchecked")
+    private static String getAuthConfig(BMap<BString, Object> configurations, BString key) {
+        BMap<BString, Object> authConfig = (BMap<BString, Object>) configurations.getMapValue(AUTH);
+        if (authConfig.containsKey(key)) {
+            return authConfig.getStringValue(key).getValue();
+        }
+        return null;
     }
 }
