@@ -62,6 +62,12 @@ public isolated client class Client {
         'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
     } external;
 
+    # Closes the AWS MPE client connection.
+    # ```ballerina
+    # check mpe->close();
+    # ```
+    # 
+    # + return - A `mpe:Error` if there is an error while closing the connection or else nil.
     remote function close() returns Error? =
     @java:Method {
         'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
