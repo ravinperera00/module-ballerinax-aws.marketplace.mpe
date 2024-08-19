@@ -15,4 +15,17 @@
 // under the License.
 
 # Represents a AWS Marketplace Entitlement distinct error.
-public type Error distinct error;
+public type Error error<ErrorDetails>;
+
+# The error details type for the AWS MPE module.
+#
+# + httpStatusCode - The HTTP status code for the error
+# + httpStatusText - The HTTP status text returned from the service
+# + errorCode - The error code associated with the response
+# + errorMessage - The human-readable error message provided by the service
+public type ErrorDetails record {|
+    int httpStatusCode?;
+    string httpStatusText?;
+    string errorCode?;
+    string errorMessage?;
+|};

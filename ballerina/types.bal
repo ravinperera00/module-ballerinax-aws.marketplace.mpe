@@ -82,7 +82,7 @@ public type AuthConfig record {|
 |};
 
 # Represents the parameters used for the `GetEntitlements` operation.
-public type EntitlementRequest record {|
+public type EntitlementsRequest record {|
     # Product code is used to uniquely identify a product in AWS Marketplace
     string productCode;
     # A parameter which is used to filter out entitlements for a specific customer or a specific dimension
@@ -90,7 +90,7 @@ public type EntitlementRequest record {|
     # The maximum number of results to return in a single call
     int maxResults?;
     # The token for pagination to retrieve the next set of results
-    string nextToken;
+    string nextToken?;
 |};
 
 # Represents the filters used for `GetEntitlements` operation.
@@ -102,7 +102,7 @@ public type EntitlementFilter record {|
 |};
 
 # Represents the results retrieved from `GetEntitlements` operation.
-public type EntitlementResponse record {|
+public type EntitlementsResponse record {|
     # The set of entitlements found through the GetEntitlements operation. 
     # If the result contains an empty set of entitlements, NextToken might still be present and should be used.
     Entitlement[] entitlements;
