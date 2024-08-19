@@ -24,12 +24,11 @@ import java.util.concurrent.ThreadFactory;
  * A {@link ThreadFactory} object that creates new threads on demand for AWS MPE client network actions.
  */
 public class AwsMpeThreadFactory implements ThreadFactory {
-    private final String threadPoolName = "balx-awsmpe-client-network-thread";
 
     @Override
     public Thread newThread(Runnable runnable) {
         Thread networkThread = new Thread(runnable);
-        networkThread.setName(threadPoolName);
+        networkThread.setName("balx-awsmpe-client-network-thread");
         return networkThread;
     }
 }
