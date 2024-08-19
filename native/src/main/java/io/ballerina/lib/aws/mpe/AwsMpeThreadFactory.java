@@ -16,14 +16,20 @@
  * under the License.
  */
 
-module io.ballerina.lib.aws.mpe {
-    requires io.ballerina.runtime;
-    requires io.ballerina.lang.value;
-    requires software.amazon.awssdk.auth;
-    requires software.amazon.awssdk.regions;
-    requires software.amazon.awssdk.services.marketplaceentitlement;
-    requires software.amazon.awssdk.awscore;
-    requires software.amazon.awssdk.core;
+package io.ballerina.lib.aws.mpe;
 
-    exports io.ballerina.lib.aws.mpe;
+import java.util.concurrent.ThreadFactory;
+
+/**
+ * A {@link ThreadFactory} object that creates new threads on demand for AWS MPE client network actions.
+ */
+public class AwsMpeThreadFactory implements ThreadFactory {
+    private final String threadPoolName = "balx-awsmpe-client-network-thread";
+
+    @Override
+    public Thread newThread(Runnable runnable) {
+        Thread networkThread = new Thread(runnable);
+        networkThread.setName(threadPoolName);
+        return networkThread;
+    }
 }
