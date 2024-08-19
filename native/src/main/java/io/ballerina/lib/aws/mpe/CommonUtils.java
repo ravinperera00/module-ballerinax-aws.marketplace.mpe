@@ -18,12 +18,14 @@
 
 package io.ballerina.lib.aws.mpe;
 
+import io.ballerina.runtime.api.Module;
 import io.ballerina.runtime.api.creators.ErrorCreator;
 import io.ballerina.runtime.api.creators.TypeCreator;
 import io.ballerina.runtime.api.creators.ValueCreator;
 import io.ballerina.runtime.api.flags.SymbolFlags;
 import io.ballerina.runtime.api.types.ArrayType;
 import io.ballerina.runtime.api.types.RecordType;
+import io.ballerina.runtime.api.types.TupleType;
 import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.BArray;
 import io.ballerina.runtime.api.values.BError;
@@ -37,6 +39,7 @@ import software.amazon.awssdk.services.marketplaceentitlement.model.GetEntitleme
 import software.amazon.awssdk.services.marketplaceentitlement.model.GetEntitlementsRequest;
 import software.amazon.awssdk.services.marketplaceentitlement.model.GetEntitlementsResponse;
 
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +52,9 @@ public final class CommonUtils {
     private static final RecordType ENTITLEMENT_REC_TYPE = TypeCreator.createRecordType(
             Constants.MPE_ENTITLEMENT, ModuleUtils.getModule(), SymbolFlags.PUBLIC, true, 0);
     private static final ArrayType ENTITLEMENT_ARR_TYPE = TypeCreator.createArrayType(ENTITLEMENT_REC_TYPE);
+    private static final TupleType BUTC_TYPE = TypeCreator.createTupleType(
+            Constants.BTIME_UTC, new Module(Constants.BTIME_ORG_NAME, Constants.BTIME_PKG_NAME),
+            0, false, true);
 
     private CommonUtils() {
     }
@@ -116,9 +122,15 @@ public final class CommonUtils {
         if (Objects.nonNull(dimension)) {
             bEntitlement.put(Constants.MPE_ENTITLEMENT_CUS_IDNFR, StringUtils.fromString(customerIdentifier));
         }
-        // todo: identify how to convert an instance into `time:Utc`
-//        Instant expirationDate = nativeEntitlement.expirationDate();
-//        long epochSecond = expirationDate.getEpochSecond();
+        Instant expirationDate = nativeEntitlement.expirationDate();
+        if (Objects.nonNull(expirationDate)) {
+            long epochSecond = expirationDate.getEpochSecond();
+            int nanos = expirationDate.getNano();
+            BArray utcTime = ValueCreator.createTupleValue(BUTC_TYPE);
+            utcTime.append(epochSecond);
+            utcTime.append(nanos);
+            bEntitlement.put(Constants.MPE_ENTITLEMENT_EXP_DATE, utcTime);
+        }
         populateEntitlementValue(nativeEntitlement, bEntitlement);
         return bEntitlement;
     }

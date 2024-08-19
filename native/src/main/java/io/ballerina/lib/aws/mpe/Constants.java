@@ -46,6 +46,11 @@ public interface Constants {
     BString MPE_ENTITLEMENT_EXP_DATE = StringUtils.fromString("expirationDate");
     BString MPE_ENTITLEMENT_VALUE = StringUtils.fromString("value");
 
+    // Ballerina time module related constants
+    String BTIME_ORG_NAME = "ballerina";
+    String BTIME_PKG_NAME = "time";
+    String BTIME_UTC = "Utc";
+
     // Constants related to MPE Error
     String MPE_ERROR = "Error";
     String MPE_ERROR_DETAILS = "ErrorDetails";
