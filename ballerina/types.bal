@@ -14,8 +14,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/time;
 import ballerina/constraint;
+import ballerina/time;
 
 # Represents the Client configurations for AWS Marketplace Entitlement service.
 public type ConnectionConfig record {|

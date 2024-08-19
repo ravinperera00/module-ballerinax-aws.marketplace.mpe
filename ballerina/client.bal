@@ -14,8 +14,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/jballerina.java;
 import ballerina/constraint;
+import ballerina/jballerina.java;
 
 # AWS Marketplace entitlement client.
 public isolated client class Client {
@@ -27,27 +27,27 @@ public isolated client class Client {
     #   secretAccessKey: "<aws-secret-key>"
     # });
     # ```
-    # 
+    #
     # + configs - The AWS MPE client configurations
     # + return - The `mpe:Client` or an `mpe:Error` if the initialization failed
     public isolated function init(*ConnectionConfig configs) returns Error? {
         return self.externInit(configs);
     }
 
-    isolated function externInit(ConnectionConfig configs) returns Error? = 
+    isolated function externInit(ConnectionConfig configs) returns Error? =
     @java:Method {
         name: "init",
         'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
-    } external;    
+    } external;
 
     # Retrieves the entitlement values for a given product.
     # ```ballerina
     # mpe:EntitlementsResponse response = check mpe->getEntitlements(productCode = "<aws-product-code>");
     # ```
-    # 
+    #
     # + request - The `mpe:GetEntitlements` request with relevant details
     # + return - An `mpe:EntitlementsResponse` containing the entitlement details, 
-    #            or an `mpe:Error` if the request validation or the operation failed.
+    # or an `mpe:Error` if the request validation or the operation failed.
     remote function getEntitlements(*EntitlementsRequest request) returns EntitlementsResponse|Error {
         EntitlementsRequest|constraint:Error validated = constraint:validate(request);
         if validated is constraint:Error {
@@ -56,11 +56,11 @@ public isolated client class Client {
         return self.externGetEntitlements(validated);
     }
 
-    isolated function externGetEntitlements(EntitlementsRequest request) returns EntitlementsResponse|Error = 
+    isolated function externGetEntitlements(EntitlementsRequest request) returns EntitlementsResponse|Error =
     @java:Method {
         name: "getEntitlements",
         'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
-    } external; 
+    } external;
 
     remote function close() returns Error? =
     @java:Method {
