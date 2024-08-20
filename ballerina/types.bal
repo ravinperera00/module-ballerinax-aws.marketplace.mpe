@@ -124,7 +124,7 @@ public type EntitlementsResponse record {|
     string nextToken?;
 |};
 
-# Represents the capacity in a product owned by the customer
+# Represents the capacity in a product owned by the customer.
 public type Entitlement record {|
     # The product code for which the given entitlement applies
     string productCode?;
