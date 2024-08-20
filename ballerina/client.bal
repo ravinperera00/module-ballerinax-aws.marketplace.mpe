@@ -37,7 +37,7 @@ public isolated client class Client {
     isolated function externInit(ConnectionConfig configs) returns Error? =
     @java:Method {
         name: "init",
-        'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
+        'class: "io.ballerina.lib.aws.mpe.NativeClientAdaptor"
     } external;
 
     # Retrieves the entitlement values for a given product.
@@ -59,7 +59,7 @@ public isolated client class Client {
     isolated function externGetEntitlements(EntitlementsRequest request) returns EntitlementsResponse|Error =
     @java:Method {
         name: "getEntitlements",
-        'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
+        'class: "io.ballerina.lib.aws.mpe.NativeClientAdaptor"
     } external;
 
     # Closes the AWS MPE client resources.
@@ -70,6 +70,6 @@ public isolated client class Client {
     # + return - A `mpe:Error` if there is an error while closing the client resources or else nil.
     remote function close() returns Error? =
     @java:Method {
-        'class: "io.ballerina.lib.aws.mpe.AwsMpeClient"
+        'class: "io.ballerina.lib.aws.mpe.NativeClientAdaptor"
     } external;
 }

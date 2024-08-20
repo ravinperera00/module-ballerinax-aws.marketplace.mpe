@@ -41,11 +41,11 @@ import java.util.concurrent.Executors;
  * Representation of {@link software.amazon.awssdk.services.marketplaceentitlement.MarketplaceEntitlementClient} with
  * utility methods to invoke as inter-op functions.
  */
-public final class AwsMpeClient {
+public final class NativeClientAdaptor {
     private static final String NATIVE_CLIENT = "nativeClient";
     private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool(new AwsMpeThreadFactory());
 
-    private AwsMpeClient() {
+    private NativeClientAdaptor() {
     }
 
     /**
