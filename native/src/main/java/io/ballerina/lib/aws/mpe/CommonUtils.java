@@ -31,6 +31,7 @@ import io.ballerina.runtime.api.values.BArray;
 import io.ballerina.runtime.api.values.BError;
 import io.ballerina.runtime.api.values.BMap;
 import io.ballerina.runtime.api.values.BString;
+import io.ballerina.stdlib.time.nativeimpl.Utc;
 import software.amazon.awssdk.awscore.exception.AwsErrorDetails;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.services.marketplaceentitlement.model.Entitlement;
@@ -124,12 +125,7 @@ public final class CommonUtils {
         }
         Instant expirationDate = nativeEntitlement.expirationDate();
         if (Objects.nonNull(expirationDate)) {
-            long epochSecond = expirationDate.getEpochSecond();
-            int nanos = expirationDate.getNano();
-            BArray utcTime = ValueCreator.createTupleValue(BUTC_TYPE);
-            utcTime.append(epochSecond);
-            utcTime.append(nanos);
-            bEntitlement.put(Constants.MPE_ENTITLEMENT_EXP_DATE, utcTime);
+            bEntitlement.put(Constants.MPE_ENTITLEMENT_EXP_DATE, new Utc(expirationDate));
         }
         populateEntitlementValue(nativeEntitlement, bEntitlement);
         return bEntitlement;
