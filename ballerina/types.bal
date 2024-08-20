@@ -135,5 +135,5 @@ public type Entitlement record {|
     # The expiration date represents the minimum date through which this entitlement is expected to remain valid
     time:Utc expirationDate?;
     # The amount of capacity that the customer is entitled to for the product
-    boolean|decimal|int|string value?;
+    boolean|float|int|string value?;
 |};
